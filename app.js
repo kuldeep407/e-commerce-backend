@@ -17,8 +17,7 @@ app.use(
   })
 );
 
-app.use("/images", express.static("uploads/images"));
-
+app.use("/images", express.static(path.join(__dirname, "uploads/images")));
 
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/UserRoutes.js";
