@@ -12,9 +12,14 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
+const cors = require("cors");
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173", 
+      "https://e-commerce-client-teal.vercel.app"
+    ],
     credentials: true,
   })
 );
