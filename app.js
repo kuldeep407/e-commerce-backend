@@ -4,8 +4,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
-import { fileURLToPath } from "url";
-import path from "path";
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 const app = express();
 
@@ -14,10 +14,14 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "http://localhost:5173", 
+      "https://e-commerce-client-teal.vercel.app"
+    ],
     credentials: true,
   })
 );
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +40,7 @@ app.use(userRoutes);
 app.use("/", (req, res) => {
   res.send("WORKING");
 });
+
 
 mongoose
   .connect(MONGODB_URI)
