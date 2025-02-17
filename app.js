@@ -1,0 +1,44 @@
+import express from "express";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
+
+const app = express();
+
+const PORT = process.env.PORT || 4000;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
+app.use("/images", express.static("uploads/images"));
+
+
+import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/UserRoutes.js";
+
+app.use(cookieParser());
+app.use(express.json());
+
+app.use(productRoutes);
+app.use(userRoutes);
+
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log("Database connected!");
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err);
+  });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
