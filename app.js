@@ -29,6 +29,10 @@ app.use(express.json());
 app.use(productRoutes);
 app.use(userRoutes);
 
+app.use("/", (req, res) => {
+  res.send("WORKING");
+});
+
 
 mongoose
   .connect(MONGODB_URI)
