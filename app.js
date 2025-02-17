@@ -14,7 +14,11 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "http://localhost:5173",
+      "https://e-commerce-client-teal.vercel.app",
+      "https://e-commerce-admin-umber.vercel.app",
+    ],
     credentials: true,
   })
 );
