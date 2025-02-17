@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 const app = express();
 
@@ -16,6 +18,9 @@ app.use(
     credentials: true,
   })
 );
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use("/images", express.static(path.join(__dirname, "uploads/images")));
 
