@@ -12,8 +12,6 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-const cors = require("cors");
-
 app.use(
   cors({
     origin: [
@@ -23,6 +21,7 @@ app.use(
     credentials: true,
   })
 );
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
