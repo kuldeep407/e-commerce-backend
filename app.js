@@ -18,7 +18,8 @@ app.use(
       "http://localhost:5173",
       "https://e-commerce-client-teal.vercel.app",
       "https://e-commerce-admin-umber.vercel.app",
-      "https://inquisitive-strudel-58ef21.netlify.app"
+      "https://inquisitive-strudel-58ef21.netlify.app",
+      "https://magnificent-treacle-0c7374.netlify.app"
     ],
     credentials: true,
   })
