@@ -19,7 +19,7 @@ app.use(
       "https://e-commerce-client-teal.vercel.app",
       "https://e-commerce-admin-umber.vercel.app",
       "https://inquisitive-strudel-58ef21.netlify.app",
-      "https://magnificent-treacle-0c7374.netlify.app"
+      "https://magnificent-treacle-0c7374.netlify.app",
     ],
     credentials: true,
   })
@@ -32,12 +32,16 @@ app.use("/images", express.static(path.join(__dirname, "uploads/images")));
 
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/UserRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 app.use(cookieParser());
 app.use(express.json());
 
 app.use(productRoutes);
 app.use(userRoutes);
+app.use(orderRoutes);
+app.use(paymentRoutes);
 
 app.use("/", (req, res) => {
   res.send("WORKING");
