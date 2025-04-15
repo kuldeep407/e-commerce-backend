@@ -114,3 +114,47 @@ export async function getOrders(req, res) {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 }
+
+export async function getAllOrders(req, res) {
+  try {
+    const orders = await Order.find().populate([
+      "userId",
+      "products.productId",
+    ]);
+    if (!orders || orders.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No Order found!" });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: "Orders fetched successfully", orders });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+}
+
+export async function deleteOrder(req, res) {
+  const { orderId } = req.params;
+  try {
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found!" });
+    }
+
+    await Order.findByIdAndDelete(orderId);
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Order removed successfully" });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error!" });
+  }
+}

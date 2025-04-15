@@ -35,14 +35,11 @@ router.route("/add-product").post(AddProduct);
 router.route("/all-products").get(FetchAllProducts);
 router.route("/remove-product/:id").delete(removeProduct);
 router.route("/get-new-collection").get(fetchNewCollection);
-router.route("/get-popular-women-category-products").get(fetchPopularWomenCategoryProducts);
+router
+  .route("/get-popular-women-category-products")
+  .get(fetchPopularWomenCategoryProducts);
 router.route("/add-to-cart").post(userAuth, addToCart);
 router.route("/remove-product-from-cart").post(userAuth, removeFromCart);
 router.route("/get-all-cart-items").get(userAuth, GetAllCartItems);
-
-
-
-
-
 
 export default router;

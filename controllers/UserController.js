@@ -46,7 +46,7 @@ export async function userSignup(req, res) {
       password: hashedPwd,
       cartData: cart,
     });
-    await user.save(); 
+    await user.save();
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
@@ -67,7 +67,7 @@ export async function userSignup(req, res) {
       success: true,
       message: "User singup successfull",
       user,
-      token
+      token,
     });
   } catch (err) {
     console.error(err);
@@ -112,6 +112,49 @@ export async function userLogin(req, res) {
       .json({ success: true, message: "User logged in", token });
   } catch (err) {
     console.error("Login error:", err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error!" });
+  }
+}
+
+export async function getUsers(req, res) {
+  try {
+    const users = await User.find();
+    if (users.length === 0 || !users) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No user found!" });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "User fetched successfully", users });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error!" });
+  }
+}
+
+export async function removeUser(req, res) {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found!" });
+    }
+
+    await User.findByIdAndDelete(userId);
+
+    return res
+      .status(200)
+      .json({ success: true, message: "User removed successfully" });
+  } catch (err) {
+    console.error(err);
     return res
       .status(500)
       .json({ success: false, message: "Internal server error!" });
